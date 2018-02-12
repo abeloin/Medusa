@@ -9,6 +9,7 @@ import traceback
 import certifi
 
 import factory
+import os
 
 import medusa.common
 from medusa import app
@@ -57,8 +58,17 @@ class MedusaSession(BaseSession):
         Configure the ssl verification.
 
         We need to overwrite this in the request method. As it's not available in the session init.
+
+        We need to check if env REQUESTS_CA_BUNDLE or CURL_CA_BUNDLE are set since request will ignore them if
+        verify is not True or None. This is required for certificate not in the certifi bundle - e.g. self-signed
+
         :param verify: SSL verification on or off.
         """
+        ca_bundle = (os.environ.get('REQUESTS_CA_BUNDLE') or os.environ.get('CURL_CA_BUNDLE'))
+
+        if ca_bundle is not None:
+            return ca_bundle if all([app.SSL_VERIFY, verify]) else False
+
         return certifi.where() if all([app.SSL_VERIFY, verify]) else False
 
     def __init__(self, proxies=None, **kwargs):
