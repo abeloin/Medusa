@@ -1803,11 +1803,21 @@ def is_already_processed_media(full_filename):
     return bool(history_result)
 
 
+def get_provider_from_history(info_hash):
+    """Return the provider for a given info hash"""
+    main_db_con = db.DBConnection()
+    provider_result = main_db_con.select('SELECT provider FROM history WHERE info_hash=lower(?)', [info_hash])
+
+    if provider_result:
+        return provider_result[0]["provider"]
+    else:
+        return False
+
 def is_info_hash_in_history(info_hash):
     """Check if info hash is in history."""
     main_db_con = db.DBConnection()
     history_result = main_db_con.select('SELECT info_hash FROM history '
-                                        'WHERE info_hash=?',
+                                        'WHERE info_hash=lower(?)',
                                         [info_hash])
     return bool(history_result)
 
@@ -1816,7 +1826,7 @@ def is_info_hash_processed(info_hash):
     """Check if info hash was already processed (downloaded status)."""
     main_db_con = db.DBConnection()
     history_result = main_db_con.select('SELECT info_hash FROM (SELECT showid, season, episode, quality '
-                                        'FROM history WHERE info_hash=?) s '
+                                        'FROM history WHERE info_hash=lower(?)) s '
                                         'JOIN history d ON '
                                         'd.showid = s.showid AND '
                                         'd.season = s.season AND '
