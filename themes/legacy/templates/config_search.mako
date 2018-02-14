@@ -94,13 +94,14 @@
                                         </span>
                                 </label>
                             </div><!-- daily search frequency -->
-                            <div class="field-pair"${' hidden' if app.TORRENT_METHOD not in ('transmission', 'deluge', 'deluged') else ''}>
+                            <div class="field-pair">
                                 <label for="remove_from_client">
                                     <span class="component-title">Remove torrents from client</span>
                                     <span class="component-desc">
-                                        <input type="checkbox" name="remove_from_client" id="remove_from_client" class="enabler" ${'checked="checked"' if app.REMOVE_FROM_CLIENT and app.TORRENT_METHOD in ('transmission', 'deluge', 'deluged') else ''}/>
-                                        <p>Remove torrent from client (also torrent data) when provider ratio is reached</p>
-                                        <p><b>Note:</b> For now only Transmission and Deluge are supported</p>
+                                        <input type="checkbox" name="remove_from_client" id="remove_from_client" class="enabler" ${'checked="checked"' if app.REMOVE_FROM_CLIENT else ''}/>
+                                        <p>Remove torrent from client (also torrent data*) when provider ratio is reached</p>
+                                        <p><b>Note:</b> Not all clients are supported.</p>
+                                        <p>* The torrent files are deleted in Transmission and Deluge. rTorrent only remove the torrent, not the actual files on disk.</p>
                                     </span>
                                 </label>
                             </div>
