@@ -47,6 +47,9 @@ class TransmissionAPI(GenericClient):
         self.rpcurl = self.rpcurl.strip('/')
         self.url = urljoin(self.host, self.rpcurl + '/rpc')
 
+        self.external_name = 'transmission'
+        self.support_remove_from_client = True
+
     def check_response(self):
         """Check if response is a valid json and its a success one."""
         try:

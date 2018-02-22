@@ -117,6 +117,8 @@ class DelugeAPI(GenericClient):
         super(DelugeAPI, self).__init__('Deluge', host, username, password)
         self.session.headers.update({'Content-Type': 'application/json'})
         self.url = '{host}json'.format(host=self.host)
+        self.external_name = 'deluge'
+        self.support_remove_from_client = True
 
     def _get_auth(self):
         post_data = json.dumps({

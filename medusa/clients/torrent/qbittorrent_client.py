@@ -26,6 +26,8 @@ class QBittorrentAPI(GenericClient):
         super(QBittorrentAPI, self).__init__('qbittorrent', host, username, password)
         self.url = self.host
         self.session.auth = HTTPDigestAuth(self.username, self.password)
+        self.external_name = 'qbittorent'
+        self.support_remove_from_client = False
 
     @property
     def api(self):

@@ -19,6 +19,7 @@
 
 from __future__ import unicode_literals
 
+from medusa.clients.torrent.generic import GenericClient
 
 _clients = [
     'deluge',
@@ -46,3 +47,38 @@ def get_client_class(name):
     :rtype: class
     """
     return get_client_module(name).api
+
+
+def get_all_subclasses():
+    """Return list of immediate subclasses for GenericClient."""
+    for client in _clients:
+        get_client_module(client)
+    return GenericClient.__subclasses__()
+
+
+def is_torrent_client(client):
+    """Return True if client in all supported clients.
+
+    :param client:
+    :type client: string
+    :return:
+    :rtype: bool
+    """
+    if client in _clients:
+        return True
+    return False
+
+
+def is_remove_client_supported(client):
+    """Return True if client support remove torrent.
+
+    :param client:
+    :type client: string
+    :return:
+    :rtype: bool
+    """
+    for subclass in get_all_subclasses():
+        if client == subclass().external_name and subclass().support_remove_from_client:
+            return True
+
+    return False

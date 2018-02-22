@@ -94,13 +94,25 @@
                                         </span>
                                 </label>
                             </div><!-- daily search frequency -->
-                            <div class="field-pair"${' hidden' if app.TORRENT_METHOD not in ('transmission', 'deluge', 'deluged') else ''}>
+                            <div class="field-pair"${' hidden' if not torrent.is_remove_client_supported(app.TORRENT_METHOD) else ''}>
                                 <label for="remove_from_client">
                                     <span class="component-title">Remove torrents from client</span>
                                     <span class="component-desc">
-                                        <input type="checkbox" name="remove_from_client" id="remove_from_client" class="enabler" ${'checked="checked"' if app.REMOVE_FROM_CLIENT and app.TORRENT_METHOD in ('transmission', 'deluge', 'deluged') else ''}/>
+                                        <input type="checkbox" name="remove_from_client" id="remove_from_client" class="enabler" ${'checked="checked"' if app.REMOVE_FROM_CLIENT and torrent.is_remove_client_supported(app.TORRENT_METHOD) else ''}/>
                                         <p>Remove torrent from client (also torrent data) when provider ratio is reached</p>
-                                        <p><b>Note:</b> For now only Transmission and Deluge are supported</p>
+                                        <p><b>Note:</b> Supported clients are:
+                                            <% format_client = '' %>
+                                            % for client in torrent.get_all_subclasses():
+                                                % if client().support_remove_from_client:
+                                                    % if loop.index > 0:
+                                                        <% format_client = format_client + ', ' + client().external_name %>
+                                                    % else:
+                                                        <% format_client = format_client + client().external_name %>
+                                                    % endif
+                                                % endif
+                                            % endfor
+                                            ${format_client}.
+                                        </p>
                                     </span>
                                 </label>
                             </div>

@@ -12,6 +12,7 @@ from medusa import (
     logger,
     ui,
 )
+from medusa.clients import torrent
 from medusa.helper.common import try_int
 from medusa.server.web.config.handler import Config
 from medusa.server.web.core import PageTemplate
@@ -80,7 +81,7 @@ class ConfigSearch(Config):
         app.TORRENT_METHOD = torrent_method
         app.USENET_RETENTION = try_int(usenet_retention, 500)
 
-        if not app.TORRENT_METHOD == 'blackhole' and app.TORRENT_METHOD in ('transmission', 'deluge', 'deluged'):
+        if torrent.is_remove_client_supported(remove_from_client):
             config.change_REMOVE_FROM_CLIENT(remove_from_client)
         else:
             config.change_REMOVE_FROM_CLIENT('false')

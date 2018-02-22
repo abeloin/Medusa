@@ -465,6 +465,7 @@ def change_REMOVE_FROM_CLIENT(remove_from_client):
         app.torrent_checker_scheduler.silent = True
         log.info(u'Stopping TORRENTCHECKER thread')
 
+
 def CheckSection(CFG, sec):
     """ Check if INI section exists, if not create it """
 

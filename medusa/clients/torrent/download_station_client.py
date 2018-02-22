@@ -62,6 +62,9 @@ class DownloadStationAPI(GenericClient):
         self.checked_destination = False
         self.destination = app.TORRENT_PATH
 
+        self.external_name = 'download_station'
+        self.support_remove_from_client = False
+
     def _check_response(self):
         """Check if session is still valid."""
         try:

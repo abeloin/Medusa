@@ -31,6 +31,8 @@ class RTorrentAPI(GenericClient):
         :type password: string
         """
         super(RTorrentAPI, self).__init__('rTorrent', host, username, password)
+        self.external_name = 'rtorrent'
+        self.support_remove_from_client = False
 
     def _get_auth(self):
         if self.auth is not None:

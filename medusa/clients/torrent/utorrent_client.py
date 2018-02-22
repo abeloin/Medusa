@@ -34,6 +34,9 @@ class UTorrentAPI(GenericClient):
         super(UTorrentAPI, self).__init__('uTorrent', host, username, password)
         self.url = urljoin(self.host, 'gui/')
 
+        self.external_name = 'utorrent'
+        self.support_remove_from_client = False
+
     def _request(self, method='get', params=None, data=None, files=None, cookies=None):
         if cookies:
             log.debug('{name}: Received unused argument: cookies={value!r}',

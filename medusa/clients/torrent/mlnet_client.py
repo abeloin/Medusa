@@ -23,6 +23,8 @@ class MLNetAPI(GenericClient):
         super(MLNetAPI, self).__init__('mlnet', host, username, password)
         self.url = self.host
         # self.session.auth = HTTPDigestAuth(self.username, self.password);
+        self.external_name = 'mlnet'
+        self.support_remove_from_client = False
 
     def _get_auth(self):
 

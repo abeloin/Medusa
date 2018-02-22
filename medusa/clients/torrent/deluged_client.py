@@ -40,6 +40,8 @@ class DelugeDAPI(GenericClient):
         :type password: string
         """
         super(DelugeDAPI, self).__init__('DelugeD', host, username, password)
+        self.external_name = 'deluged'
+        self.support_remove_from_client = True
 
     def _get_auth(self):
         return True if self.connect() else None

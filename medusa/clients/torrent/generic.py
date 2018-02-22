@@ -37,6 +37,7 @@ class GenericClient(object):
         :type password: string
         """
         self.name = name
+        self.external_name = name
         self.username = app.TORRENT_USERNAME if username is None else username
         self.password = app.TORRENT_PASSWORD if password is None else password
         self.host = app.TORRENT_HOST if host is None else host
@@ -47,6 +48,7 @@ class GenericClient(object):
         self.last_time = time.time()
         self.session = MedusaSession()
         self.session.auth = (self.username, self.password)
+        self.support_remove_from_client = False
 
     def _request(self, method='get', params=None, data=None, files=None, cookies=None):
 
