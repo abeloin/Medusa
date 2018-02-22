@@ -35,6 +35,8 @@ EXTRA_SCRIPTS_URL = '{0}/wiki/Post-Processing#extra-scripts'.format(APPLICATION_
 SUBTITLES_URL = '{0}/wiki/Subtitle%20Scripts'.format(APPLICATION_URL)
 RARBG_APPID = 'medusa'
 SECURE_TOKEN = 'medusa_user'
+TORRENT_CLIENTS = ('blackhole', 'utorrent', 'transmission', 'deluge', 'deluged', 'download_station',
+                   'rtorrent', 'qbittorrent', 'mlnet')
 
 # static configuration
 LOCALE = None, None

@@ -94,7 +94,6 @@
                                         </span>
                                 </label>
                             </div><!-- daily search frequency -->
-                            <p><% print(torrent.is_remove_client_supported(app.TORRENT_METHOD))%><%print(app.TORRENT_METHOD)%></p>
                             <div class="field-pair"${' hidden' if not torrent.is_remove_client_supported(app.TORRENT_METHOD) else ''}>
                                 <label for="remove_from_client">
                                     <span class="component-title">Remove torrents from client</span>
@@ -525,7 +524,7 @@
                                     <span class="component-desc">
                                     <select name="torrent_method" id="torrent_method" class="form-control input-sm">
     <% torrent_method_text = {'blackhole': "Black hole", 'utorrent': "uTorrent", 'transmission': "Transmission", 'deluge': "Deluge (via WebUI)", 'deluged': "Deluge (via Daemon)", 'download_station': "Synology DS", 'rtorrent': "rTorrent", 'qbittorrent': "qbittorrent", 'mlnet': "MLDonkey"} %>
-    % for cur_action in ('blackhole', 'utorrent', 'transmission', 'deluge', 'deluged', 'download_station', 'rtorrent', 'qbittorrent', 'mlnet'):
+    % for cur_action in app.TORRENT_CLIENTS:
                                     <option value="${cur_action}" ${'selected="selected"' if app.TORRENT_METHOD == cur_action else ''}>${torrent_method_text[cur_action]}</option>
     % endfor
                                     </select>
