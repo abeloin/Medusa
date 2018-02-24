@@ -19,7 +19,15 @@
 
 from __future__ import unicode_literals
 
-from medusa.clients.torrent.generic import GenericClient
+from generic import GenericClient
+from deluge_client import DelugeAPI
+from deluged_client import DelugeDAPI
+from download_station_client import DownloadStationAPI
+from mlnet_client import MLNetAPI
+from qbittorrent_client import QBittorrentAPI
+from rtorrent_client import RTorrentAPI
+from transmission_client import TransmissionAPI
+from utorrent_client import UTorrentAPI
 
 _clients = [
     'deluge',
@@ -49,10 +57,21 @@ def get_client_class(name):
     return get_client_module(name).api
 
 
+def get_client_instance(name):
+    """Return the client API class for the given name.
+
+    :param name:
+    :type name: string
+    :return:
+    :rtype: instance
+    """
+    for subclass in get_all_subclasses():
+        if name == subclass().external_name:
+            return subclass()
+
+
 def get_all_subclasses():
     """Return list of immediate subclasses for GenericClient."""
-    for client in _clients:
-        get_client_module(client)
     return GenericClient.__subclasses__()
 
 

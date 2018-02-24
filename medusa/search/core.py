@@ -155,7 +155,7 @@ def snatch_episode(result):
                     result.content = result.provider.get_content(result.url)
 
             if result.content or result.url.startswith(u'magnet:'):
-                client = torrent.get_client_class(app.TORRENT_METHOD)()
+                client = torrent.get_client_instance(app.TORRENT_METHOD)
                 result_downloaded = client.send_torrent(result)
             else:
                 log.warning(u'Torrent file content is empty: {0}', result.name)

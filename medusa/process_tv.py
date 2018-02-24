@@ -644,7 +644,7 @@ class ProcessResult(object):
             release_names = 'N/A'
 
         logger.log('Trying to move torrent after post-processing', logger.DEBUG)
-        client = torrent.get_client_class(app.TORRENT_METHOD)()
+        client = torrent.get_client_instance(app.TORRENT_METHOD)
         torrent_moved = False
         try:
             torrent_moved = client.move_torrent(info_hash)

@@ -37,7 +37,7 @@ class TorrentChecker(object):
         self.amActive = True
 
         try:
-            client = torrent.get_client_class(app.TORRENT_METHOD)()
+            client = torrent.get_client_instance(app.TORRENT_METHOD)
             client.remove_ratio_reached()
         except NotImplementedError:
             logger.warning('Feature not currently implemented for this torrent client({torrent_client})',
